@@ -18,31 +18,44 @@ def upload():
     results = []
     for i in range(len(data['text'])):
             if int(data['conf'][i]) > 60 and data['text'][i].strip() != "":
-                x = data['left'][i]
-                y = data['top'][i]
-                w = data['width'][i]
-                h = data['height'][i]
+                results.append({
+                     "text": data['text'][i],
+                     "x": data['left'][i],
+                     "y": data['top'][i],
+                     "w": data['width'][i],
+                     "h": data['height'][i]
+                    })
+    return jsonify(results)
+@app.route('/edit', methods = ['POST'])
+def edit():
+                data=request.json
+                x = data['x']
+                y = data['y']
+                w = data['w']
+                h = data['h']
+
+                new_text = data['new_text']
+
+                img = cv2.imread("temp.png")
 
                 cv2.rectangle(img, (x, y), (x+w, y+h),(245,245,245),-1)
 
-                new_text = "EDITED"
-
                 font_scale = h/42
-
+                y_text = y + int(h * 0.8)
                 cv2.putText(
                      img,
                      new_text,
-                     (x,y+h-5),
+                     (x,y_text),
                      cv2.FONT_HERSHEY_COMPLEX,
                      font_scale,
                      (0,0,0),
                      1
                 )
         
-    output_path = "output.png"
-    cv2.imwrite(output_path,img)
+                output_path = "output.png"
+                cv2.imwrite(output_path,img)
 
 
-    return jsonify({"message":"done", "output": output_path})
+                return jsonify({"output": output_path})
 if __name__ == '__main__':
     app.run(debug=True)
