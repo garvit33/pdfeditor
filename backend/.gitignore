@@ -1,1 +1,12 @@
+# Python environments & caches
+venv/
+__pycache__/
+*.pyc
+
+# Temporary Editor Outputs & Uploads
+temp.png
 output.png
+
+# Dummy files
+test.png
+sample.pdf

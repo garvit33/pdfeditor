@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleek PDF & Image Text Editor</title>
+    <meta name="description" content="A powerful and sleek deep-learning based text editor for scanned images and PDFs.">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <span class="logo-icon">✨</span>
+                <h1>VisionEditor</h1>
+            </div>
+            <p>Upload an image bill, document, or PDF to edit the extracted text seamlessly.</p>
+        </header>
+
+        <main class="main-content">
+            <section class="upload-section">
+                <div class="upload-dropzone" id="dropzone">
+                    <input type="file" id="file-input" accept="image/png, image/jpeg, application/pdf" hidden>
+                    <div class="upload-content">
+                        <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        <h3>Drag & drop your file here</h3>
+                        <p>or click to browse from your computer</p>
+                        <button class="btn-primary" id="browse-btn">Browse Files</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="editor-section hidden" id="editor-section">
+                <div class="canvas-container" id="canvas-container">
+                    <canvas id="canvas"></canvas>
+                    <div class="loader-overlay hidden" id="loader">
+                        <div class="spinner"></div>
+                        <p>Processing text via OCR...</p>
+                    </div>
+                </div>
+                
+                <div class="controls-panel">
+                    <button class="btn-secondary" id="reset-btn">Upload Another File</button>
+                    <button class="btn-primary" id="download-btn" disabled>Download Edited Image</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit Text Modal (replaces simple prompt) -->
+    <div class="modal-overlay hidden" id="edit-modal">
+        <div class="modal-content glass-effect">
+            <h3>Edit Text</h3>
+            <p>Enter the new text and select a matching font style:</p>
+            <select id="font-style-select" class="modern-input" style="margin-bottom: 10px;">
+                <option value="sans-serif">Standard (Arial)</option>
+                <option value="serif">Serif (Times New Roman)</option>
+                <option value="monospace">Typewriter (Courier)</option>
+                <option value="bold">Bold</option>
+            </select>
+            <input type="text" id="edit-text-input" class="modern-input" placeholder="Type new text here...">
+            <div class="modal-actions">
+                <button class="btn-secondary" id="cancel-edit-btn">Cancel</button>
+                <button class="btn-primary" id="save-edit-btn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
